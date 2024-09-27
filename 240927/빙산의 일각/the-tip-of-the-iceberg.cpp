@@ -33,14 +33,9 @@ int main() {
                 cur = false;
             }
         }
-        if(cnt == ans)
+        else if(cnt >= ans)
         {
-            right = mid-1;
-            ans = cnt;
-        }
-        else if(cnt > ans)
-        {
-            right = mid;
+            right = mid - 1;
             ans = cnt;
         }
         else if(cnt < ans)
