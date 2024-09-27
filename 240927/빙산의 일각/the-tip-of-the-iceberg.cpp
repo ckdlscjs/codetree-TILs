@@ -8,11 +8,14 @@ int main() {
     std::cin.tie(0);
     std::cout.tie(0);
     std::cin >> n;
-    for(int i = 0; i < n; i++)
-        std::cin >> arr[i];
     int ans = 0;
     int left = 0;
-    int right = 1000000000;
+    int right = 0;
+    for(int i = 0; i < n; i++)
+    {
+        std::cin >> arr[i];
+        right = std::max(right, arr[i]);
+    }
     while(left <= right)
     {
         int mid = (left + right) / 2;
