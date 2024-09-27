@@ -9,8 +9,8 @@ int main() {
     std::cout.tie(0);
     std::cin >> n;
     int ans = 0;
-    int left = 0;
-    int right = 10000000001;
+    int left = 1;
+    int right = 10000000000;
     for(int i = 0; i < n; i++)
         std::cin >> arr[i];
     while(left <= right)
