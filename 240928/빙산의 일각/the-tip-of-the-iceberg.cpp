@@ -30,7 +30,7 @@ int main() {
             cur++;
         else if(under[idx-1] && under[idx+1])
             cur--;
-        if(i == n || arr[i+1].second > arr[i].second)
+        if(i >= 2 && arr[i].second > arr[i-1].second)
             ans = std::max(ans, cur);
     }
     std::cout << ans;
