@@ -33,14 +33,19 @@ int main() {
                 cur = false;
             }
         }
-        if(cnt >= ans)
+        if(cnt == ans)
+        {
+            right = mid-1;
+            ans = cnt;
+        }
+        else if(cnt > ans)
         {
             right = mid;
             ans = cnt;
         }
         else if(cnt < ans)
         {
-            left = mid + 1;
+            left = mid+1;
         }
     }
     std::cout << ans;
