@@ -12,10 +12,12 @@ int main() {
     cin >> n;
     int ans = 0;
     int left = 0;
-    int right = 1000000000;
+    int right = 0;
     for (int i = 0; i < n; i++)
+    {
         cin >> arr[i];
-    
+        right = std::max(right, arr[i]);
+    }
     while (left + 1 < right) {
         int mid = (left + right) / 2;
         int cnt = 0;
