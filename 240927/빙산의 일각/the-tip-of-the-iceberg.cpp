@@ -33,7 +33,6 @@ int main() {
         if(cnt == ans)
         {
             right = mid-1;
-            ans = cnt;
         }
         else if(cnt > ans)
         {
