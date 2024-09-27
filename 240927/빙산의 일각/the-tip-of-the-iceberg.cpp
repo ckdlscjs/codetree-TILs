@@ -8,8 +8,8 @@ int main() {
     std::cin.tie(0);
     std::cout.tie(0);
     std::cin >> n;
-    int ans = 0;
-    int left = 1;
+    int ans = 1;
+    int left = 0;
     int right = 10000000000;
     for(int i = 0; i < n; i++)
         std::cin >> arr[i];
