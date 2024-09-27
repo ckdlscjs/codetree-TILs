@@ -10,7 +10,7 @@ int main() {
     std::cin >> n;
     int ans = 0;
     int left = 0;
-    int right = 1000000000;
+    int right = 10000000001;
     for(int i = 0; i < n; i++)
         std::cin >> arr[i];
     while(left <= right)
