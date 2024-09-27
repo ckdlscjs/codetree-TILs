@@ -13,7 +13,7 @@ int main() {
     int ans = 0;
     int left = 0;
     int right = 1000000000;
-    while(left < right)
+    while(left <= right)
     {
         int mid = (left + right) / 2;
         int cnt = 0;
@@ -30,14 +30,19 @@ int main() {
                 cur = false;
             }
         }
-        if(cnt >= ans)
+        if(cnt == ans)
         {
             right = mid-1;
             ans = cnt;
         }
+        else if(cnt > ans)
+        {
+            right = mid;
+            ans = cnt;
+        }
         else if(cnt < ans)
         {
-            left = mid+1;
+            left = mid + 1;
         }
     }
     std::cout << ans;
