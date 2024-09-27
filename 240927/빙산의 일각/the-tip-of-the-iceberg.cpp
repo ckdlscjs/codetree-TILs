@@ -13,7 +13,7 @@ int main() {
     int ans = 0;
     int left = 0;
     int right = 1000000000;
-    while(left+1 < right)
+    while(left < right)
     {
         int mid = (left + right) / 2;
         int cnt = 0;
