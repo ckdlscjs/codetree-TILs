@@ -3,47 +3,35 @@ using namespace std;
 
 int n;
 const int MaxN = 100005;
-int arr[MaxN];
-
-int countClusters(int height) {
-    int cnt = 0;
-    bool cur = false;
-    for (int i = 0; i < n; i++) {
-        if (arr[i] > height && !cur) {
-            cnt++;
-            cur = true;
-        } else if (arr[i] <= height) {
-            cur = false;
-        }
-    }
-    return cnt;
-}
-
+bool under[MaxN];
+std::pair<int, int> arr[MaxN];
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
-    
     cin >> n;
-    int maxHeight = 0;
-    for (int i = 0; i < n; i++) {
-        cin >> arr[i];
-        maxHeight = max(maxHeight, arr[i]);
+    for (int i = 1; i <= n; i++) 
+    {
+        cin >> arr[i].second;
+        arr[i].first = i;
     }
-
-    int left = 0, right = maxHeight, ans = 0;
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        int clusters = countClusters(mid);
-        
-        if (clusters >= ans) {
-            ans = clusters;
-            left = mid + 1;  // 더 높은 높이에서 시도
-        } else {
-            right = mid - 1;  // 더 낮은 높이에서 시도
-        }
+    std::stable_sort(arr+1, arr+n+1, [](const std::pair<int, int>& a, const std::pair<int, int>& b)
+    {
+        return a.second < b.second;
+    });
+    under[0] = under[n+1] = true;
+    int ans = 1;
+    int cur = 1;
+    for(int i = 1; i <= n; i++)
+    {
+        int idx = arr[i].first;
+        under[idx] = true;
+        if(!under[idx-1] && !under[idx+1])
+            cur++;
+        else if(under[idx-1] && under[idx+1])
+            cur--;
+        ans = std::max(ans, cur);
     }
-
-    cout << ans << "\n";
+    std::cout << ans;
     return 0;
 }
