@@ -42,7 +42,7 @@ int main() {
         int clusters = countClusters(n, mid);
         int clustersLower = countClusters(n, mid - 1);
         
-        ans = max(ans, max(clusters, clustersLower));
+        ans = max({ans, clusters, clustersLower});
 
         if (clustersLower > clusters) {
             right = mid - 1;
