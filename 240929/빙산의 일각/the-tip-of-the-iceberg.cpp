@@ -1,49 +1,58 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
 using namespace std;
-int n;
-const int MaxN = 100005;
-int arr[MaxN];
-int main() {
-    std::ios::sync_with_stdio(false);
-    std::cin.tie(0);
-    std::cout.tie(0);
-    std::cin >> n;
-    int ans = 0;
-    int left = 0;
-    int right = 0;
-    for(int i = 0; i < n; i++)
-    {
-        std::cin >> arr[i];
-        right = std::max(right, arr[i]);
-    }
-    while(left < right)
-    {
-        int mid = (left + right) / 2;
-        int cnt = 0;
-        bool cur = false;
-        for(int i = 0; i < n; i++)
-        {
-            if(arr[i] > mid && !cur)
-            {
-                cnt++;
-                cur = true;
+
+int countClusters(const vector<int>& heights, int waterLevel) {
+    int clusters = 0;
+    bool inCluster = false;
+    for (int height : heights) {
+        if (height > waterLevel) {
+            if (!inCluster) {
+                clusters++;
+                inCluster = true;
             }
-            else if(arr[i] <= mid)
-            {
-                cur = false;
-            }
+        } else {
+            inCluster = false;
         }
-        if(cnt >= ans)
-        {
+    }
+    return clusters;
+}
+
+int maxClusters(const vector<int>& heights) {
+    int left = 0, right = *max_element(heights.begin(), heights.end());
+    int maxCount = 0;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        int clusterCount = countClusters(heights, mid);
+        
+        maxCount = max(maxCount, clusterCount);
+        
+        int leftCount = countClusters(heights, mid - 1);
+        int rightCount = countClusters(heights, mid + 1);
+        
+        if (leftCount >= rightCount) {
             right = mid - 1;
-            ans = std::max(cnt, ans);
-        }
-        else if(cnt < ans)
-        {
-            left = mid+1;
-            ans = std::max(cnt, ans);
+        } else {
+            left = mid + 1;
         }
     }
-    std::cout << ans;
+    
+    return maxCount;
+}
+
+int main() {
+    int N;
+    cin >> N;
+    
+    vector<int> heights(N);
+    for (int i = 0; i < N; i++) {
+        cin >> heights[i];
+    }
+    
+    cout << maxClusters(heights) << endl;
+    
     return 0;
 }
