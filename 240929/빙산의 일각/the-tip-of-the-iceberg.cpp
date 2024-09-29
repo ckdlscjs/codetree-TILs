@@ -1,58 +1,55 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int countClusters(const vector<int>& heights, int waterLevel) {
-    int clusters = 0;
+const int MaxN = 100005;
+int arr[MaxN];
+
+int countClusters(int n, int height) {
+    int cnt = 0;
     bool inCluster = false;
-    for (int height : heights) {
-        if (height > waterLevel) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] > height) {
             if (!inCluster) {
-                clusters++;
+                cnt++;
                 inCluster = true;
             }
         } else {
             inCluster = false;
         }
     }
-    return clusters;
+    return cnt;
 }
 
-int maxClusters(const vector<int>& heights) {
-    int left = 0, right = *max_element(heights.begin(), heights.end());
-    int maxCount = 0;
-    
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    int n;
+    cin >> n;
+
+    int maxHeight = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+        maxHeight = max(maxHeight, arr[i]);
+    }
+
+    int left = 0, right = maxHeight;
+    int ans = 0;
+
     while (left <= right) {
         int mid = left + (right - left) / 2;
-        int clusterCount = countClusters(heights, mid);
+        int clusters = countClusters(n, mid);
         
-        maxCount = max(maxCount, clusterCount);
-        
-        int leftCount = countClusters(heights, mid - 1);
-        int rightCount = countClusters(heights, mid + 1);
-        
-        if (leftCount >= rightCount) {
+        ans = max(ans, clusters);
+
+        if (countClusters(n, mid - 1) > clusters) {
             right = mid - 1;
         } else {
             left = mid + 1;
         }
     }
-    
-    return maxCount;
-}
 
-int main() {
-    int N;
-    cin >> N;
-    
-    vector<int> heights(N);
-    for (int i = 0; i < N; i++) {
-        cin >> heights[i];
-    }
-    
-    cout << maxClusters(heights) << endl;
-    
+    cout << ans << endl;
     return 0;
 }
