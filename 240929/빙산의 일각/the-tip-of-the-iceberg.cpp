@@ -16,7 +16,6 @@ int main() {
         std::cin >> arr[i];
         right = std::max(right, arr[i]);
     }
-    right += 1;
     while(left < right)
     {
         int mid = (left + right) / 2;
