@@ -40,10 +40,11 @@ int main() {
     while (left <= right) {
         int mid = left + (right - left) / 2;
         int clusters = countClusters(n, mid);
+        int clustersLower = countClusters(n, mid - 1);
         
-        ans = max(ans, clusters);
+        ans = max(ans, max(clusters, clustersLower));
 
-        if (countClusters(n, mid - 1) > clusters) {
+        if (clustersLower > clusters) {
             right = mid - 1;
         } else {
             left = mid + 1;
